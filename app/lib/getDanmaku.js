@@ -1,7 +1,10 @@
 import protobufjs from "protobufjs";
-import { join } from "path"
 
-const protoType = protobufjs.loadSync(join(import.meta.dirname, "../protobuf/BiliPojo.proto")).lookupType("DmSegMobileReply")
+var protoType;
+(async () => {
+    const proto = protobufjs.parse(await fetch(import.meta.env.VITE_URL+"/protobuf/BiliPojo.proto").then(x=>x.text())).root
+    protoType = proto.lookupType("DmSegMobileReply")
+})()
 
 /**
  * 弹幕对象
