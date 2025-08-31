@@ -1,4 +1,4 @@
-import getBvSrc from "~/lib/bvSrc";
+import { getBvSrc } from "~/lib/bili";
 import type { Route } from "./+types/bv";
 import R from "~/lib/R";
 import RespJson from "~/lib/RespJson";

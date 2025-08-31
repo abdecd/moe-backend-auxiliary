@@ -1,4 +1,4 @@
-export function getCidAvid(bv, p = undefined) {
+export async function getCidAvid(bv, p = undefined) {
     if (p) {
         return fetch(`https://api.bilibili.com/x/web-interface/view/detail?bvid=${bv}&need_operation_card=0&web_rm_repeat=0&need_elec=0`)
             .then(res => res.json())
@@ -10,7 +10,7 @@ export function getCidAvid(bv, p = undefined) {
         .then(data => ({ cid: data.data.View.cid, avid: data.data.View.aid }))
 }
 
-export default async function getBvSrc(qn, p, bvid, SESSDATA) {
+export async function getBvSrc(qn, p, bvid, SESSDATA) {
     const quality = qn || 80
 
     var { cid, avid } = await getCidAvid(bvid, p)
@@ -23,6 +23,10 @@ export default async function getBvSrc(qn, p, bvid, SESSDATA) {
             "Cookie": SESSDATA ? "SESSDATA=" + SESSDATA + ";" : "",
         }
     })
-    .then(res => res.json())
-    .catch(error => error)
+        .then(res => res.json())
+        .catch(error => error)
+}
+
+export async function getMetadataByEpid(epid) {
+    return fetch('https://api.bilibili.com/pgc/view/web/season?ep_id=' + epid).then(res => res.json());
 }
